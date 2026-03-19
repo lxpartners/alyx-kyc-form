@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KYC — ALYX Properties</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10pt;color:#1a1a1a;background:#fff}
+
+/* PAGE */
+.page{width:210mm;min-height:297mm;margin:0 auto 6mm;padding:12mm 13mm 16mm;position:relative;background:#fff;page-break-after:always}
+.page:last-child{page-break-after:auto}
+
+/* HEADER */
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5px solid #1a1a1a;padding-bottom:6px;margin-bottom:13px}
+.logo{font-size:17pt;font-weight:900;letter-spacing:5px;line-height:1}
+.logo small{display:block;font-size:6.5pt;letter-spacing:3px;color:#888;font-weight:400;margin-top:1px}
+.hdr-r{text-align:right;font-size:7pt;color:#888}
+.hdr-r strong{display:block;font-size:8.5pt;color:#1a1a1a;font-weight:700}
+
+/* FOOTER */
+.ftr{position:absolute;bottom:6mm;left:13mm;right:13mm;display:flex;justify-content:space-between;font-size:6.5pt;color:#bbb;border-top:.5px solid #e8e8e8;padding-top:3px}
+
+/* SECTION */
+.stitle{font-size:9pt;font-weight:800;margin-bottom:1px;margin-top:10px;letter-spacing:.2px}
+.stitle:first-child{margin-top:0}
+.ssub{font-size:7pt;color:#888;font-style:italic;margin-bottom:7px}
+
+/* CARD */
+.card{border:.5px solid #ddd;border-radius:6px;padding:8px 11px;margin-bottom:7px}
+.ctitle{font-size:7pt;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;border-bottom:.5px solid #eee;padding-bottom:3px;margin-bottom:7px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.s2{grid-column:span 2}
+.s3{grid-column:span 3}
+
+/* FIELD */
+.f{display:flex;flex-direction:column}
+.f label{font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#999;margin-bottom:2px}
+.f input[type=text],.f input[type=date],.f input[type=email],.f input[type=tel],.f textarea,.f select{
+  font-family:inherit;font-size:8.5pt;border:none;border-bottom:.5px solid #bbb;
+  padding:2px 1px;background:transparent;color:#1a1a1a;width:100%;outline:none;-webkit-appearance:none}
+.f textarea{border:.5px solid #bbb;border-radius:3px;padding:3px 5px;resize:none}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:#1a1a1a;background:#fafafa}
+
+/* RADIO / CHECKBOX */
+.opts{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:3px}
+.opts label,.chk-col label{display:flex;align-items:center;gap:3px;font-size:8pt;cursor:pointer;white-space:nowrap}
+.opts input,.chk-col input{width:10px;height:10px;accent-color:#1a1a1a;flex-shrink:0}
+.chk-col{display:flex;flex-direction:column;gap:4px;margin-top:3px}
+.flbl{font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#999;margin-bottom:2px;display:block}
+
+/* YES/NO */
+.yn{display:flex;justify-content:space-between;align-items:center;background:#f8f8f8;border-radius:4px;padding:5px 8px;margin-bottom:6px;font-size:8.5pt;gap:8px}
+.yn-q{flex:1}
+.yn-o{display:flex;gap:10px;flex-shrink:0}
+.yn-o label{display:flex;align-items:center;gap:3px;font-size:8.5pt;cursor:pointer;font-weight:600}
+
+/* TOGGLE SECTION */
+.toggle-section{display:none}
+.toggle-section.open{display:block}
+
+/* QUICK START */
+.qs{background:#f8f8f8;border-radius:6px;padding:10px 13px;margin-bottom:9px}
+.qs-t{font-size:9.5pt;font-weight:800;margin-bottom:3px}
+.qs ol{list-style:none;counter-reset:s;padding:0}
+.qs ol li{counter-increment:s;display:flex;gap:7px;font-size:8.5pt;margin-bottom:3px}
+.qs ol li::before{content:counter(s);font-weight:800;min-width:13px}
+
+/* TWO COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+
+/* CHECKLIST */
+.cklist{list-style:none}
+.cklist li{display:flex;align-items:flex-start;gap:6px;font-size:8.5pt;margin-bottom:4px}
+.cbox{width:10px;height:10px;border:.5px solid #aaa;border-radius:2px;flex-shrink:0;margin-top:2px}
+
+/* LEGAL */
+.legal{border:.5px solid #ddd;border-radius:6px;padding:9px 12px;font-size:7.5pt;color:#555;line-height:1.55;margin-bottom:7px}
+.legal strong{display:block;font-size:8.5pt;color:#1a1a1a;font-weight:700;margin-bottom:4px}
+
+/* SIGN */
+.sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+.sign-line{border-top:.5px solid #aaa;height:28px;margin-top:4px}
+
+/* ANNEXE TOGGLE BTN */
+.annex-btn{display:inline-flex;align-items:center;gap:6px;background:#f8f8f8;border:.5px solid #d0d0d0;border-radius:4px;padding:5px 11px;font-size:8pt;font-family:inherit;color:#1a1a1a;cursor:pointer;font-weight:700;margin-bottom:9px}
+.annex-body{font-size:7.8pt;line-height:1.6;color:#444}
+.annex-body p{margin-bottom:5px}
+.annex-body ul{margin-left:14px;margin-bottom:5px}
+.annex-body ul li{margin-bottom:2px}
+.annex-body strong{color:#1a1a1a}
+
+@media print{
+  body{margin:0}
+  .page{margin:0;width:100%;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ P1 · COVER ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>KYC — Pessoas Singulares</strong>AMI n.º 20468 · NIPC 516351974 · v3 · Confidencial</div>
+  </div>
+
+  <div class="card">
+    <div class="g2">
+      <div class="f"><label>Proprietário</label><input type="text" name="prop_nome"></div>
+      <div class="f"><label>Referência interna</label><input type="text" name="ref_interna"></div>
+      <div class="f"><label>ID imóvel</label><input type="text" name="id_imovel"></div>
+      <div class="f"><label>NIPC</label><input type="text" name="prop_nipc"></div>
+    </div>
+  </div>
+
+  <div class="qs">
+    <div class="qs-t">Como preencher</div>
+    <ol>
+      <li>Secção A — Identificação do imóvel</li>
+      <li>Secção B — Proposta e meios de pagamento</li>
+      <li>Secção C — Proponente (+ cônjuge se aplicável)</li>
+      <li>Secção D — Representante legal (se aplicável)</li>
+      <li>Secção E — PeP (obrigatório para todos os intervenientes)</li>
+      <li>Secção F — Documentos · Secção G — Mediação · Secção H — Assinaturas</li>
+    </ol>
+  </div>
+
+  <div class="two">
+    <div class="card" style="margin:0">
+      <div class="ctitle">Secções</div>
+      <div style="font-size:8.5pt;line-height:1.8">
+        <b>A</b> &nbsp;Identificação do imóvel<br>
+        <b>B</b> &nbsp;Proposta<br>
+        <b>C</b> &nbsp;Proponente — Pessoa Singular<br>
+        <b>D</b> &nbsp;Representante Legal<br>
+        <b>E</b> &nbsp;Pessoas Politicamente Expostas<br>
+        <b>F</b> &nbsp;Documentos obrigatórios<br>
+        <b>G</b> &nbsp;Mediação Imobiliária<br>
+        <b>H</b> &nbsp;Proteção de Dados &amp; Assinaturas
+      </div>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="ctitle">Checklist de submissão</div>
+      <ul class="cklist">
+        <li><div class="cbox"></div>Todos os campos obrigatórios preenchidos</li>
+        <li><div class="cbox"></div>"N/A" onde não aplicável</li>
+        <li><div class="cbox"></div>Documentos de suporte anexados</li>
+        <li><div class="cbox"></div>Assinaturas conformes ao documento de identificação</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="legal" style="margin-top:4px">
+    <strong>ALYX Properties, Lda</strong>
+    Sede: Av. da Liberdade, n.º 110, 5.º, 1250-146 Lisboa · NIPC 516351974 · AMI n.º 20468 · Marca n.º 643606. Este documento é propriedade da ALYX Properties, Lda. Reprodução estritamente proibida.
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>1</span></div>
+</div>
+
+
+<!-- ══════════════ P2 · A + B ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>A &amp; B</strong>Imóvel &amp; Proposta</div>
+  </div>
+
+  <div class="stitle">A — Identificação do Imóvel</div>
+  <div class="ssub">Informação básica do imóvel objeto da proposta.</div>
+  <div class="card">
+    <div class="g3">
+      <div class="f s3"><label>Morada completa</label><input type="text" name="a_morada"></div>
+      <div class="f"><label>Código postal</label><input type="text" name="a_cp"></div>
+      <div class="f"><label>Localidade</label><input type="text" name="a_local"></div>
+      <div class="f"><label>Proprietário</label><input type="text" name="a_prop"></div>
+    </div>
+  </div>
+
+  <div class="stitle">B — Proposta</div>
+  <div class="ssub">Condições e estrutura financeira da proposta.</div>
+  <div class="card">
+    <div class="ctitle">Dados da proposta</div>
+    <div class="g3">
+      <div class="f s3"><label>Propósito do negócio</label><input type="text" name="b_prop"></div>
+      <div class="f s3">
+        <span class="flbl">Destino do bem</span>
+        <div class="opts">
+          <label><input type="checkbox" name="b_hab"> Habitação</label>
+          <label><input type="checkbox" name="b_arr"> Arrendamento</label>
+          <label><input type="checkbox" name="b_rev"> Revenda</label>
+          <label><input type="checkbox" name="b_inv"> Investimento</label>
+          <label><input type="checkbox" name="b_out"> Outro:</label>
+          <input type="text" name="b_out_txt" style="border:none;border-bottom:.5px solid #bbb;width:80px;font-size:8.5pt;background:transparent;outline:none">
+        </div>
+      </div>
+      <div class="f"><label>Valor da proposta (€)</label><input type="text" name="b_valor"></div>
+      <div class="f"><label>Sinal CPCV (€)</label><input type="text" name="b_sinal"></div>
+      <div class="f"><label>Prazo para escritura</label><input type="text" name="b_prazo"></div>
+      <div class="f s2">
+        <span class="flbl">Fundos</span>
+        <div class="opts">
+          <label><input type="radio" name="b_fundos" value="p"> Próprios</label>
+          <label><input type="radio" name="b_fundos" value="f"> Financiamento</label>
+          <label><input type="radio" name="b_fundos" value="m"> Mistos</label>
+        </div>
+      </div>
+      <div class="f"><label>% Financiamento</label><input type="text" name="b_fin_pct"></div>
+      <div class="f s2"><label>Banco financiador</label><input type="text" name="b_fin_banco"></div>
+      <div class="f">
+        <span class="flbl">Origem de fundos próprios</span>
+        <div class="chk-col">
+          <label><input type="checkbox" name="b_dep"> Depósito bancário</label>
+          <label><input type="checkbox" name="b_ven"> Venda de ativo</label>
+          <label><input type="checkbox" name="b_cert"> Certificados de aforro/tesouro</label>
+          <label><input type="checkbox" name="b_fout"> Outro: <input type="text" name="b_fout_txt" style="border:none;border-bottom:.5px solid #bbb;width:60px;font-size:8.5pt;background:transparent;outline:none"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Meios de pagamento</div>
+    <div class="g3">
+      <div class="f s3">
+        <span class="flbl">Meio de pagamento</span>
+        <div class="opts">
+          <label><input type="checkbox" name="b_cheque"> Cheque bancário / visado</label>
+          <label><input type="checkbox" name="b_transf"> Transferência bancária</label>
+        </div>
+      </div>
+      <div class="f s2"><label>Banco e IBAN (cheque)</label><input type="text" name="b_cheque_iban"></div>
+      <div class="f"><label>IBAN (transferência)</label><input type="text" name="b_transf_iban"></div>
+      <div class="f s3"><label>Observações</label><textarea name="b_obs" rows="2"></textarea></div>
+    </div>
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>2</span></div>
+</div>
+
+
+<!-- ══════════════ P3 · C — Proponente ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>C</strong>Proponente — Pessoa Singular</div>
+  </div>
+
+  <div class="stitle">C — Proponente</div>
+  <div class="ssub">Use "N/A" onde não aplicável. Duplique a página para mais proponentes.</div>
+
+  <div class="card">
+    <div class="ctitle">Dados pessoais</div>
+    <div class="g3">
+      <div class="f s3"><label>Nome completo</label><input type="text" name="c1_nome"></div>
+      <div class="f"><label>Data de nascimento</label><input type="date" name="c1_nasc"></div>
+      <div class="f"><label>Naturalidade (Freguesia / Concelho)</label><input type="text" name="c1_nat"></div>
+      <div class="f"><label>Nacionalidade</label><input type="text" name="c1_nac"></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Documento de identificação</div>
+      <span class="flbl">Tipo</span>
+      <div class="chk-col" style="margin-bottom:7px">
+        <label><input type="radio" name="c1_doc" value="cc"> BI / Cartão de Cidadão</label>
+        <label><input type="radio" name="c1_doc" value="pass"> Passaporte</label>
+        <label><input type="radio" name="c1_doc" value="res"> Título de Residência</label>
+        <label><input type="radio" name="c1_doc" value="out"> Outro: <input type="text" name="c1_doc_out" style="border:none;border-bottom:.5px solid #bbb;width:60px;font-size:8.5pt;background:transparent;outline:none"></label>
+      </div>
+      <div class="f" style="margin-bottom:5px"><label>N.º documento</label><input type="text" name="c1_docnum"></div>
+      <div class="f" style="margin-bottom:5px"><label>Emissão</label><input type="date" name="c1_emissao"></div>
+      <div class="f" style="margin-bottom:5px"><label>Entidade emitente</label><input type="text" name="c1_entidade"></div>
+      <div class="f"><label>Válido até</label><input type="date" name="c1_validade"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Fiscal &amp; Residência</div>
+      <div class="f" style="margin-bottom:5px"><label>NIF nacional</label><input type="text" name="c1_nif"></div>
+      <div class="f" style="margin-bottom:5px"><label>NIF estrangeiro / País</label><input type="text" name="c1_nif_est"></div>
+      <div class="f" style="margin-bottom:5px"><label>Residência permanente e país</label><input type="text" name="c1_res1"><input type="text" name="c1_res2" style="margin-top:3px;border:none;border-bottom:.5px solid #bbb;width:100%;font-size:8.5pt;background:transparent;outline:none"></div>
+      <div class="f"><label>Residência fiscal (se diferente) e país</label><input type="text" name="c1_resf"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Profissional &amp; contacto</div>
+    <div class="g3">
+      <div class="f"><label>Profissão</label><input type="text" name="c1_prof"></div>
+      <div class="f"><label>Entidade patronal</label><input type="text" name="c1_patr"></div>
+      <div class="f">
+        <span class="flbl">Estado civil</span>
+        <div class="chk-col">
+          <label><input type="radio" name="c1_ec" value="cas"> Casado/a</label>
+          <label><input type="radio" name="c1_ec" value="sol"> Solteiro/a</label>
+          <label><input type="radio" name="c1_ec" value="div"> Divorciado/a</label>
+          <label><input type="radio" name="c1_ec" value="viu"> Viúvo/a</label>
+        </div>
+      </div>
+      <div class="f s2">
+        <span class="flbl">Regime de casamento</span>
+        <div class="opts">
+          <label><input type="radio" name="c1_reg" value="cg"> Comunhão geral</label>
+          <label><input type="radio" name="c1_reg" value="ca"> Comunhão de adquiridos</label>
+          <label><input type="radio" name="c1_reg" value="sep"> Separação total</label>
+        </div>
+      </div>
+      <div class="f"><label>Telefone</label><input type="tel" name="c1_tel"></div>
+      <div class="f s2"><label>Email</label><input type="email" name="c1_email"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Beneficiário efetivo (se o proponente não age por conta própria)</div>
+    <div class="g3">
+      <div class="f s3"><label>Identificação</label><input type="text" name="c1_bef"></div>
+      <div class="f"><label>Telefone</label><input type="tel" name="c1_bef_tel"></div>
+      <div class="f s2"><label>Email</label><input type="email" name="c1_bef_email"></div>
+    </div>
+  </div>
+
+  <!-- CÔNJUGE -->
+  <div class="stitle">Cônjuge / Unido(a) de facto</div>
+  <div class="ssub">Indique se existe cônjuge ou unido(a) de facto.</div>
+
+  <div class="card" style="margin-bottom:6px">
+    <div class="yn" style="margin:0">
+      <span class="yn-q">Existe cônjuge ou unido(a) de facto?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="tem_conj" value="sim" onchange="tog('conj_det',this.value,'sim')"> Sim</label>
+        <label><input type="radio" name="tem_conj" value="nao" onchange="tog('conj_det',this.value,'sim')"> Não</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="conj_det" class="toggle-section">
+    <div class="card">
+      <div class="ctitle">Dados do cônjuge</div>
+      <div class="g3">
+        <div class="f s2"><label>Nome completo</label><input type="text" name="conj_nome"></div>
+        <div class="f">
+          <span class="flbl">É também proponente?</span>
+          <div class="opts"><label><input type="radio" name="conj_prop" value="s"> Sim</label><label><input type="radio" name="conj_prop" value="n"> Não</label></div>
+        </div>
+        <div class="f"><label>Data de nascimento</label><input type="date" name="conj_nasc"></div>
+        <div class="f"><label>Naturalidade</label><input type="text" name="conj_nat"></div>
+        <div class="f"><label>Nacionalidade</label><input type="text" name="conj_nac"></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">Documento de identificação</div>
+        <div class="chk-col" style="margin-bottom:7px">
+          <label><input type="radio" name="conj_doc" value="cc"> BI / Cartão de Cidadão</label>
+          <label><input type="radio" name="conj_doc" value="pass"> Passaporte</label>
+          <label><input type="radio" name="conj_doc" value="res"> Título de Residência</label>
+          <label><input type="radio" name="conj_doc" value="out"> Outro: <input type="text" name="conj_doc_out" style="border:none;border-bottom:.5px solid #bbb;width:55px;font-size:8.5pt;background:transparent;outline:none"></label>
+        </div>
+        <div class="f" style="margin-bottom:5px"><label>N.º documento</label><input type="text" name="conj_docnum"></div>
+        <div class="f" style="margin-bottom:5px"><label>Emissão</label><input type="date" name="conj_emissao"></div>
+        <div class="f" style="margin-bottom:5px"><label>Entidade emitente</label><input type="text" name="conj_entidade"></div>
+        <div class="f"><label>Válido até</label><input type="date" name="conj_validade"></div>
+      </div>
+      <div class="card">
+        <div class="ctitle">Fiscal, residência &amp; contacto</div>
+        <div class="f" style="margin-bottom:5px"><label>NIF nacional</label><input type="text" name="conj_nif"></div>
+        <div class="f" style="margin-bottom:5px"><label>NIF estrangeiro / País</label><input type="text" name="conj_nif_est"></div>
+        <div class="f" style="margin-bottom:5px"><label>Residência permanente e país</label><input type="text" name="conj_res"></div>
+        <div class="f" style="margin-bottom:5px"><label>Residência fiscal (se diferente)</label><input type="text" name="conj_resf"></div>
+        <div class="f" style="margin-bottom:5px"><label>Profissão</label><input type="text" name="conj_prof"></div>
+        <div class="f" style="margin-bottom:5px"><label>Entidade patronal</label><input type="text" name="conj_patr"></div>
+        <div class="f" style="margin-bottom:5px"><label>Telefone</label><input type="tel" name="conj_tel"></div>
+        <div class="f"><label>Email</label><input type="email" name="conj_email"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>3</span></div>
+</div>
+
+
+<!-- ══════════════ P4 · D + E ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>D &amp; E</strong>Representante Legal &amp; PeP</div>
+  </div>
+
+  <div class="stitle">D — Representante Legal</div>
+  <div class="ssub">Preencha apenas se existir representante legal.</div>
+
+  <div class="card" style="margin-bottom:6px">
+    <div class="yn" style="margin:0">
+      <span class="yn-q">Existe representante legal?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="tem_rep" value="sim" onchange="tog('rep_det',this.value,'sim')"> Sim</label>
+        <label><input type="radio" name="tem_rep" value="nao" onchange="tog('rep_det',this.value,'sim')"> Não</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="rep_det" class="toggle-section">
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">Dados pessoais &amp; identificação</div>
+        <div class="f" style="margin-bottom:5px"><label>Nome completo</label><input type="text" name="d_nome"></div>
+        <div class="f" style="margin-bottom:5px"><label>Data de nascimento</label><input type="date" name="d_nasc"></div>
+        <div class="f" style="margin-bottom:5px"><label>Naturalidade</label><input type="text" name="d_nat"></div>
+        <div class="f" style="margin-bottom:5px"><label>Nacionalidade</label><input type="text" name="d_nac"></div>
+        <span class="flbl" style="margin-top:4px">Tipo de documento</span>
+        <div class="chk-col" style="margin-bottom:7px">
+          <label><input type="radio" name="d_doc" value="cc"> BI / Cartão de Cidadão</label>
+          <label><input type="radio" name="d_doc" value="pass"> Passaporte</label>
+          <label><input type="radio" name="d_doc" value="res"> Título de Residência</label>
+          <label><input type="radio" name="d_doc" value="out"> Outro: <input type="text" name="d_doc_out" style="border:none;border-bottom:.5px solid #bbb;width:55px;font-size:8.5pt;background:transparent;outline:none"></label>
+        </div>
+        <div class="f" style="margin-bottom:5px"><label>N.º documento</label><input type="text" name="d_docnum"></div>
+        <div class="f" style="margin-bottom:5px"><label>Emissão</label><input type="date" name="d_emissao"></div>
+        <div class="f" style="margin-bottom:5px"><label>Entidade emitente</label><input type="text" name="d_entidade"></div>
+        <div class="f"><label>Válido até</label><input type="date" name="d_validade"></div>
+      </div>
+      <div class="card">
+        <div class="ctitle">Fiscal, residência &amp; contacto</div>
+        <div class="f" style="margin-bottom:5px"><label>NIF nacional</label><input type="text" name="d_nif"></div>
+        <div class="f" style="margin-bottom:5px"><label>NIF estrangeiro / País</label><input type="text" name="d_nif_est"></div>
+        <div class="f" style="margin-bottom:5px"><label>Residência permanente e país</label><input type="text" name="d_res1"><input type="text" name="d_res2" style="margin-top:3px;border:none;border-bottom:.5px solid #bbb;width:100%;font-size:8.5pt;background:transparent;outline:none"></div>
+        <div class="f" style="margin-bottom:5px"><label>Residência fiscal (se diferente)</label><input type="text" name="d_resf"></div>
+        <div class="f" style="margin-bottom:5px"><label>Telefone</label><input type="tel" name="d_tel"></div>
+        <div class="f"><label>Email</label><input type="email" name="d_email"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PEP -->
+  <div class="stitle" style="margin-top:10px">E — Pessoas Politicamente Expostas (PeP)</div>
+  <div class="ssub">Responda relativamente a todos os intervenientes das Secções C e D. Ver Anexo I para definições.</div>
+
+  <div class="card">
+    <div class="yn">
+      <span class="yn-q"><b>1.</b> &nbsp;Algum interveniente é ou foi PeP nos últimos 12 meses?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="pep1" value="sim" onchange="togPep('p1d',this.value)"> Sim</label>
+        <label><input type="radio" name="pep1" value="nao" onchange="togPep('p1d',this.value)"> Não</label>
+      </div>
+    </div>
+    <div class="toggle-section g3" id="p1d">
+      <div class="f"><label>Interveniente</label><input type="text" name="p1_int"></div>
+      <div class="f"><label>Cargo</label><input type="text" name="p1_cargo"></div>
+      <div class="f"><label>País</label><input type="text" name="p1_pais"></div>
+      <div class="f"><label>Desde quando</label><input type="text" name="p1_desde"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="yn">
+      <span class="yn-q"><b>2.</b> &nbsp;Algum interveniente é familiar próximo de uma PeP?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="pep2" value="sim" onchange="togPep('p2d',this.value)"> Sim</label>
+        <label><input type="radio" name="pep2" value="nao" onchange="togPep('p2d',this.value)"> Não</label>
+      </div>
+    </div>
+    <div class="toggle-section g3" id="p2d">
+      <div class="f"><label>Interveniente</label><input type="text" name="p2_int"></div>
+      <div class="f"><label>Nome do PeP</label><input type="text" name="p2_pep"></div>
+      <div class="f"><label>Cargo do PeP</label><input type="text" name="p2_cargo"></div>
+      <div class="f"><label>País</label><input type="text" name="p2_pais"></div>
+      <div class="f s2"><label>Grau de parentesco</label><input type="text" name="p2_grau"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="yn">
+      <span class="yn-q"><b>3.</b> &nbsp;Algum interveniente mantém relações societárias ou comerciais com PeP?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="pep3" value="sim" onchange="togPep('p3d',this.value)"> Sim</label>
+        <label><input type="radio" name="pep3" value="nao" onchange="togPep('p3d',this.value)"> Não</label>
+      </div>
+    </div>
+    <div class="toggle-section g3" id="p3d">
+      <div class="f"><label>Interveniente</label><input type="text" name="p3_int"></div>
+      <div class="f"><label>Nome do PeP</label><input type="text" name="p3_pep"></div>
+      <div class="f"><label>Cargo do PeP</label><input type="text" name="p3_cargo"></div>
+      <div class="f"><label>País</label><input type="text" name="p3_pais"></div>
+      <div class="f s2"><label>Tipo de relação</label><input type="text" name="p3_rel"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="yn">
+      <span class="yn-q"><b>4.</b> &nbsp;Algum interveniente é ou foi titular de outro cargo político ou público em Portugal (últimos 12 meses)?</span>
+      <div class="yn-o">
+        <label><input type="radio" name="pep4" value="sim" onchange="togPep('p4d',this.value)"> Sim</label>
+        <label><input type="radio" name="pep4" value="nao" onchange="togPep('p4d',this.value)"> Não</label>
+      </div>
+    </div>
+    <div class="toggle-section g3" id="p4d">
+      <div class="f"><label>Interveniente</label><input type="text" name="p4_int"></div>
+      <div class="f"><label>Cargo</label><input type="text" name="p4_cargo"></div>
+      <div class="f"><label>Desde quando</label><input type="text" name="p4_desde"></div>
+    </div>
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>4</span></div>
+</div>
+
+
+<!-- ══════════════ P5 · F + G + H ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>F · G · H</strong>Documentos · Mediação · Assinaturas</div>
+  </div>
+
+  <div class="stitle">F — Documentos Obrigatórios</div>
+  <div class="ssub">Anexe os documentos listados. Poderá ser solicitada informação adicional.</div>
+  <div class="two">
+    <div class="card" style="margin:0">
+      <div class="ctitle">Identificação &amp; fiscal</div>
+      <ul class="cklist">
+        <li><div class="cbox"></div>Doc. de identificação do(s) proponente(s)</li>
+        <li><div class="cbox"></div>Doc. de identificação do procurador (se aplic.)</li>
+        <li><div class="cbox"></div>Comprovativo de NIF (se não constar do doc.)</li>
+        <li><div class="cbox"></div>Procuração (se aplicável)</li>
+      </ul>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="ctitle">Residência &amp; rendimentos</div>
+      <ul class="cklist">
+        <li><div class="cbox"></div>Fatura de serviço público &lt; 3 meses</li>
+        <li><div class="cbox"></div>Recibo de vencimento ou declaração profissional</li>
+        <li><div class="cbox"></div>Comprovativo de IBAN da conta de origem dos fundos</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Comprovativo da origem de fundos</div>
+    <ul class="cklist" style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px">
+      <li><div class="cbox"></div>Escritura / contrato de compra e venda de ativos</li>
+      <li><div class="cbox"></div>Declaração bancária de titularidade e suficiência</li>
+      <li><div class="cbox"></div>Extrato bancário</li>
+      <li><div class="cbox"></div>Recibos de vencimento / Declaração de IRS</li>
+      <li><div class="cbox"></div>Relatórios de contas</li>
+      <li><div class="cbox"></div>Outro: <input type="text" name="f_outro" style="border:none;border-bottom:.5px solid #bbb;width:120px;font-size:8.5pt;background:transparent;outline:none;margin-left:3px"></li>
+    </ul>
+  </div>
+
+  <div class="stitle">G — Mediação Imobiliária</div>
+  <div class="ssub">Preencha apenas se aplicável.</div>
+  <div class="card">
+    <div class="g3">
+      <div class="f s2"><label>Denominação social</label><input type="text" name="g_denom"></div>
+      <div class="f"><label>NIPC</label><input type="text" name="g_nipc"></div>
+      <div class="f"><label>Marca</label><input type="text" name="g_marca"></div>
+      <div class="f"><label>Licença AMI</label><input type="text" name="g_ami"></div>
+      <div class="f"><label>Responsável</label><input type="text" name="g_resp"></div>
+      <div class="f"><label>Telefone</label><input type="tel" name="g_tel"></div>
+      <div class="f s2"><label>Email</label><input type="email" name="g_email"></div>
+    </div>
+  </div>
+
+  <div class="stitle">H — Proteção de Dados &amp; Declarações Finais</div>
+  <div class="legal">
+    <strong>Proteção de Dados</strong>
+    A ALYX Properties, Lda trata os dados pessoais deste formulário ao abrigo do RGPD (UE 2016/679) e da Lei n.º 83/2017 (combate ao branqueamento de capitais). Os dados recolhidos são estritamente os necessários; a recusa implica a impossibilidade de celebrar o contrato. Conservados pelo prazo legalmente exigido e usados exclusivamente para o fim do contrato. Direitos de acesso, retificação e apagamento: <strong>dataprotection@algebracapital.pt</strong>
+  </div>
+  <div class="legal">
+    <strong>Declarações do(s) Proponente(s)</strong>
+    Declaro(amos) que: (i) aceito(amos) o estado do imóvel e o preço proposto; (ii) os dados fornecidos estão corretos e em vigor; (iii) consinto(imos) o tratamento dos dados para a finalidade do contrato; (iv) me(nos) comprometo(emos) a informar a ALYX de quaisquer alterações relevantes e a colaborar com pedidos de elementos complementares no âmbito da legislação AML/CFT.
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Assinaturas</div>
+    <div class="sign-grid">
+      <div>
+        <div style="font-size:7.5pt;font-weight:700;color:#888;margin-bottom:7px">Proponente 1</div>
+        <div class="f" style="margin-bottom:5px"><label>Nome</label><input type="text" name="h1_nome"></div>
+        <div class="f" style="margin-bottom:5px"><label>Local</label><input type="text" name="h1_local"></div>
+        <div class="f" style="margin-bottom:5px"><label>Data</label><input type="date" name="h1_data"></div>
+        <div class="f"><label>Assinatura (*)</label><div class="sign-line"></div></div>
+      </div>
+      <div>
+        <div style="font-size:7.5pt;font-weight:700;color:#888;margin-bottom:7px">Proponente 2 / Representante Legal</div>
+        <div class="f" style="margin-bottom:5px"><label>Nome</label><input type="text" name="h2_nome"></div>
+        <div class="f" style="margin-bottom:5px"><label>Local</label><input type="text" name="h2_local"></div>
+        <div class="f" style="margin-bottom:5px"><label>Data</label><input type="date" name="h2_data"></div>
+        <div class="f"><label>Assinatura (*)</label><div class="sign-line"></div></div>
+      </div>
+    </div>
+    <p style="font-size:7pt;color:#aaa;margin-top:8px">(*) Assinatura conforme documento de identificação.</p>
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>5</span></div>
+</div>
+
+
+<!-- ══════════════ P6 · ANNEXE I ══════════════ -->
+<div class="page">
+  <div class="hdr">
+    <div class="logo">ALYX<small>PROPERTIES</small></div>
+    <div class="hdr-r"><strong>Anexo I</strong>Definições — Lei n.º 83/2017</div>
+  </div>
+
+  <div style="font-size:9pt;font-weight:800;border-bottom:1px solid #1a1a1a;padding-bottom:4px;margin-bottom:5px">Anexo I — Definições nos termos da Lei n.º 83/2017, de 18 de agosto</div>
+  <div style="font-size:7pt;font-style:italic;color:#888;margin-bottom:9px">Apenas para referência — sem campos a preencher. Não dispensa a consulta do diploma.</div>
+
+  <button class="annex-btn" onclick="togAnexo()" id="abtn">＋ &nbsp;Ver notas legais</button>
+
+  <div id="abody" style="display:none">
+    <div class="annex-body">
+      <p><strong>Pessoas Politicamente Expostas (PeP)</strong> — Pessoas singulares que desempenham ou desempenharam nos últimos 12 meses, em qualquer país, as seguintes funções de nível superior:</p>
+      <ul>
+        <li>Chefes de Estado, de Governo e membros do Governo (ministros, secretários e subsecretários de Estado);</li>
+        <li>Deputados ou outros membros de câmaras parlamentares;</li>
+        <li>Membros do TC, STJ, STA, Tribunal de Contas e órgãos judiciais equivalentes de outros Estados ou organizações internacionais;</li>
+        <li>Representantes da República e membros dos órgãos de governo próprio de regiões autónomas;</li>
+        <li>Provedor de Justiça, Conselheiros de Estado, membros da CNPD, CSM, CSTAF, PGR, CSMP, CSDN, CES e ERC;</li>
+        <li>Chefes de missões diplomáticas e consulares;</li>
+        <li>Oficiais Generais das Forças Armadas e da GNR em efetividade; Superintendentes-Chefes da PSP;</li>
+        <li>Presidentes e vereadores com funções executivas de câmaras municipais;</li>
+        <li>Membros de órgãos de bancos centrais (incl. BCE), institutos públicos, fundações públicas e entidades administrativas independentes;</li>
+        <li>Membros do setor público empresarial (regional e local); membros executivos de partidos políticos nacionais ou regionais;</li>
+        <li>Diretores e membros de conselhos de administração de organizações internacionais.</li>
+      </ul>
+      <p style="margin-top:7px"><strong>Membros próximos da família</strong> (art. 2.º, n.º 1, al. w):</p>
+      <ul>
+        <li>Cônjuge ou unido de facto da PeP;</li>
+        <li>Parentes e afins em 1.º grau (linha reta ou colateral);</li>
+        <li>Unidos de facto dos parentes da PeP que não beneficiem do estatuto de afinidade;</li>
+        <li>Pessoas em posições similares noutros ordenamentos jurídicos.</li>
+      </ul>
+      <p style="margin-top:7px"><strong>Pessoas estreitamente associadas</strong> (art. 2.º, n.º 1, al. dd):</p>
+      <ul>
+        <li>Comproprietário com uma PeP de pessoa coletiva ou centro de interesses coletivos;</li>
+        <li>Titular de capital social ou direitos de voto de pessoa coletiva cujo beneficiário efetivo seja uma PeP;</li>
+        <li>Pessoa com relações societárias, comerciais ou profissionais com uma PeP.</li>
+      </ul>
+      <p style="margin-top:7px"><strong>Titular de outro Cargo Político ou Público</strong> — Pessoa singular que, não sendo PeP, desempenhou nos últimos 12 meses em Portugal funções de gestor público, titular de órgãos de empresa participada pelo Estado, membro do setor empresarial local, de institutos públicos, entidades públicas independentes, de direção superior do 1.º grau, ou de órgão de área metropolitana ou associativismo municipal (arts. 2.º, n.º 1, al. gg), 19.º e 39.º da Lei n.º 83/2017).</p>
+    </div>
+    <button class="annex-btn" onclick="togAnexo()" style="margin-top:10px">－ &nbsp;Fechar notas legais</button>
+  </div>
+
+  <div class="ftr"><span>ALYX Properties · AMI 20468 · Confidencial</span><span>6</span></div>
+</div>
+
+<script>
+function tog(id, val, triggerVal) {
+  var el = document.getElementById(id);
+  if (val === triggerVal) {
+    el.classList.add('open');
+  } else {
+    el.classList.remove('open');
+    el.querySelectorAll('input').forEach(function(i){
+      if(i.type==='radio'||i.type==='checkbox') i.checked=false;
+      else i.value='';
+    });
+  }
+}
+function togPep(id, val) {
+  var el = document.getElementById(id);
+  if (val === 'sim') {
+    el.classList.add('open');
+  } else {
+    el.classList.remove('open');
+    el.querySelectorAll('input').forEach(function(i){ i.value=''; });
+  }
+}
+function togAnexo() {
+  var b = document.getElementById('abody');
+  var btn = document.getElementById('abtn');
+  var open = b.style.display === 'block';
+  b.style.display = open ? 'none' : 'block';
+  btn.innerHTML = open ? '＋ &nbsp;Ver notas legais' : '－ &nbsp;Fechar notas legais';
+}
+</script>
+</body>
+</html>
